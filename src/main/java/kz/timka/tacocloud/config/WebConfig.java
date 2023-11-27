@@ -1,5 +1,9 @@
 package kz.timka.tacocloud.config;
 
+import kz.timka.tacocloud.data.Ingredient;
+import kz.timka.tacocloud.repositories.IngredientRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -31,4 +35,31 @@ public class WebConfig implements WebMvcConfigurer {
     представленному в главе 1, и удалить ссылку на HomeCont- roller из аннотации @WebMvcTest,
     чтобы тестовый класс компилиро- вался без ошибок.
      */
+
+    // Предварительная загрузка данных с помощью CommandLineRunner
+    @Bean
+    public CommandLineRunner dataLoader(IngredientRepository repo) {
+        return new CommandLineRunner() {
+            @Override
+            public void run(String... args) throws Exception {
+                repo.save(new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP));
+                repo.save(new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP));
+                repo.save(new Ingredient("GRBF", "Ground Beef", Ingredient.Type.PROTEIN));
+                repo.save(new Ingredient("CARN", "Carnitas", Ingredient.Type.PROTEIN));
+                repo.save(new Ingredient("TMTO", "Diced Tomatoes", Ingredient.Type.VEGGIES));
+                repo.save(new Ingredient("LETC", "Lettuce", Ingredient.Type.VEGGIES));
+                repo.save(new Ingredient("CHED", "Cheddar", Ingredient.Type.CHEESE));
+                repo.save(new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE));
+                repo.save(new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE));
+                repo.save(new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE));
+
+            }
+        };
+    }
+
+    /*
+    При работе с JdbcTemplate мы организовали предварительную за- грузку объектов Ingredient на запуске приложения, создав файл data. sql, который использовался для заполнения базы данных в момент создания bean-компонента, представляющего источник данных. Тот же подход можно использовать с Spring Data JDBC. На самом деле он будет работать с любым механизмом хранения данных, основанным на реляционной базе данных. Но давайте рассмотрим другой способ предварительного заполнения базы данных, который предлагает не- много больше гибкости.
+     Удобство применения интерфейса CommandLineRunner или Appli- cationRunner для первоначальной загрузки данных состоит в том, что в этом случае вместо SQL-сценария используются репозитории, то есть они одинаково хорошо будут работать и с реляционными, и с нереляционными базами данных.
+     */
+
 }

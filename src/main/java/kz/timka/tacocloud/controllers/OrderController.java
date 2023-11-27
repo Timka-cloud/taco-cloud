@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Slf4j
 @Controller
@@ -40,6 +41,7 @@ public class OrderController {
         if(errors.hasErrors()) {
             return "orderForm";
         }
+        order.setPlacedAt(new Date());
         orderRepository.save(order);
         log.info("Order submitted: {}", order);
         sessionStatus.setComplete();
