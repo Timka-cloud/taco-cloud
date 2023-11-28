@@ -1,3 +1,16 @@
+create table if not exists users
+(
+    id        identity primary key,
+    username   varchar(150) not null,
+    "PASSWORD" varchar(150) not null,
+    fullname   varchar(150) not null,
+    street  varchar(150)  not null,
+    city    varchar(150) not null,
+    state       varchar(150) not null,
+    "ZIP"   varchar(150)  not null,
+    phone_number  varchar(150)  not null
+);
+
 create table if not exists Taco_Order
 (
     id              identity primary key,
@@ -37,3 +50,4 @@ alter table Ingredient_Ref
 --     то его содержимое будет интерпретироваться как код на языке SQL и выполняться
 --     в базе данных при запуске приложения. Поэтому сохраните содержимое листинга 3.8 в файле с именем
 --     schema.sql в папке src/main/resources.
+
