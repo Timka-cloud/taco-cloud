@@ -16,7 +16,7 @@ spring:
       client:
         registration:
           google:
-            client-id: 322232632137-sim9l0tcsstt4id4bt1ee4vg9knkf1ek.apps.googleusercontent.com
+            client-id: -sim9l0tcsstt4id4bt1ee4vg9knkf1ek.apps.googleusercontent.com
             client
             scope:
               - https://www.googleapis.com/auth/userinfo.email
