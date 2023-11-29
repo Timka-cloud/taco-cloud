@@ -8,3 +8,8 @@ $ docker run -it --network cassandra-net --rm cassandra cqlsh my-cassandra
 
 cqlsh> create keyspace tacocloud
 ... with replication={‘class’:’SimpleStrategy’, ‘replication_factor’:1} ... and durable_writes=true;
+
+
+322232632137-sim9l0tcsstt4id4bt1ee4vg9knkf1ek.apps.googleusercontent.com  ID
+
+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  SECRET

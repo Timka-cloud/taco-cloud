@@ -33,6 +33,7 @@
 
       <label for="deliveryStreet">Street address: </label>
       <input type="text" th:field="*{deliveryStreet}" id="deliveryStreet"/> <br/>
+<!--      <input type="text" th:field="${user.street}" id="deliveryStreet"/> <br/>-->
       <span class="validationError"
             th:if="${#fields.hasErrors('deliveryStreet')}"
             th:errors="*{deliveryStreet}">deliveryStreet Error</span><br/>

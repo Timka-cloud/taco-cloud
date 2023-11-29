@@ -7,5 +7,10 @@
 <body>
   <h1>Welcome to...</h1>
   <img th:src="@{/images/TacoCloud.png}" width="150" height="150"/>
+
+  <form method="POST" th:action="@{/logout}">
+      <input type="submit" value="Logout"/>
+      <!--Он установит фильтр безопасности, который перехватывает запро- сы POST к /logout. Поэтому, чтобы дать возможность выхода из систе- мы, нужно просто добавить форму с кнопкой выхода, как показано ниже:-->
+  </form>
 </body>
 </html>

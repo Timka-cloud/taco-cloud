@@ -1,6 +1,39 @@
+server:
+  port: 8443
+  ssl:
+    key-store: classpath:keys/mykeys.jks
+#    ?????? ??????? ????? https
+    key-password: letmein
+    key-store-password: letmein
 spring:
   thymeleaf:
     cache: false
   datasource:
     generate-unique-name: false
     name: tacocloud
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 322232632137-sim9l0tcsstt4id4bt1ee4vg9knkf1ek.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - https://www.googleapis.com/auth/userinfo.email
+              - https://www.googleapis.com/auth/userinfo.profile
+              - openid
+  sql:
+    init:
+      schema-locations:
+        - classpath:/sql/init-schema.sql
+#logging:
+#  level:
+#    root: warn
+#    org.springframework.security: debug
+#  file:
+#    path: classpath:/var/logs
+#    name: TacoCloud.log
+
+taco:
+  orders:
+    pageSize: 10

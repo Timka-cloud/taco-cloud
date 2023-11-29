@@ -41,6 +41,10 @@ public class TacoOrder implements Serializable {
     private String ccCVV;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Taco> tacos = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
     }

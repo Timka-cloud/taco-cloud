@@ -4,6 +4,7 @@ import kz.timka.tacocloud.data.User;
 import kz.timka.tacocloud.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,16 +46,22 @@ public class SecurityConfig {
         return http
                 .authorizeRequests()
                 .antMatchers("/design", "/orders").hasRole("USER")
-                .antMatchers("/","/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/","/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate") // после логина запрос будет отправлен на /authenticate
                 .usernameParameter("user").passwordParameter("pwd") // и жду два поле user и pwd, в login.html указал там
                 .and()
-                .csrf().disable()
-                .headers().frameOptions().disable() // чтоб h2-console мог открывать
+                .oauth2Login()
+                .loginPage("/login")
+                .and()
+                .logout() //Он установит фильтр безопасности, который перехватывает запросы POST к /logout. Поэтому, чтобы дать возможность выхода из системы, нужно просто добавить форму на странице home.html с кнопкой выхода
+                .and()
+                .csrf().ignoringAntMatchers("/h2-console/**")
+                .and()
+                .headers().frameOptions().sameOrigin() // чтоб h2-console мог открывать
                 .and()
                 .build();
     }

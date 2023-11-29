@@ -5,8 +5,13 @@ import kz.timka.tacocloud.repositories.IngredientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.sql.DataSource;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
@@ -57,7 +62,6 @@ public class WebConfig implements WebMvcConfigurer {
             }
         };
     }
-
     /*
     При работе с JdbcTemplate мы организовали предварительную за- грузку объектов Ingredient на запуске приложения, создав файл data. sql, который использовался для заполнения базы данных в момент создания bean-компонента, представляющего источник данных. Тот же подход можно использовать с Spring Data JDBC. На самом деле он будет работать с любым механизмом хранения данных, основанным на реляционной базе данных. Но давайте рассмотрим другой способ предварительного заполнения базы данных, который предлагает не- много больше гибкости.
      Удобство применения интерфейса CommandLineRunner или Appli- cationRunner для первоначальной загрузки данных состоит в том, что в этом случае вместо SQL-сценария используются репозитории, то есть они одинаково хорошо будут работать и с реляционными, и с нереляционными базами данных.

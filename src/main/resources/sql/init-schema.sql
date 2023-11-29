@@ -22,7 +22,8 @@ create table if not exists Taco_Order
     cc_number       varchar(16) not null,
     cc_expiration   varchar(5)  not null,
     cc_cvv          varchar(3)  not null,
-    placed_at       timestamp   not null
+    placed_at       timestamp   not null,
+    user_id         bigint not null
 );
 create table if not exists Taco (
     id identity primary key,
@@ -45,9 +46,11 @@ alter table Taco
     add foreign key (taco_order) references Taco_Order(id);
 alter table Ingredient_Ref
     add foreign key (ingredient) references Ingredient(id);
+alter table Taco_Order
+    add foreign key (user_id) references users(id);
 --
--- Если в корне пути поиска классов приложения имеется файл с именем schema.sql,
+-- Если в корне пути поиска классов приложения имеется файл с именем init-schema.sql,
 --     то его содержимое будет интерпретироваться как код на языке SQL и выполняться
 --     в базе данных при запуске приложения. Поэтому сохраните содержимое листинга 3.8 в файле с именем
---     schema.sql в папке src/main/resources.
+--     init-schema.sql в папке src/main/resources.
 
