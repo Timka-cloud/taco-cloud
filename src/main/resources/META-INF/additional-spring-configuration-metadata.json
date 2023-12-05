@@ -2,8 +2,13 @@
   "properties": [
     {
       "name": "taco.orders.pageSize",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "Description for taco.orders.pageSize."
+    },
+    {
+      "name": "design.taco.quantity",
+      "type": "java.lang.String",
+      "description": "How many ingredients show."
     }
   ]
 }

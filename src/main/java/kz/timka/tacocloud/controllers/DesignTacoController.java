@@ -1,5 +1,6 @@
 package kz.timka.tacocloud.controllers;
 
+import kz.timka.tacocloud.config.DesignProps;
 import kz.timka.tacocloud.converters.IngredientByIdConverter2;
 import kz.timka.tacocloud.data.Ingredient;
 import kz.timka.tacocloud.data.Taco;
@@ -26,10 +27,12 @@ import java.util.stream.Collectors;
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
+    private final DesignProps designProps;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepository, DesignProps designProps) {
         this.ingredientRepository = ingredientRepository;
+        this.designProps = designProps;
     }
 
     @ModelAttribute
@@ -58,6 +61,7 @@ public class DesignTacoController {
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Ingredient.Type type) {
         return ingredients.stream()
                 .filter(x -> x.getType().equals(type))
+                .limit(designProps.getQuantity())
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,9 @@
 package kz.timka.tacocloud.config;
 
 import kz.timka.tacocloud.data.Ingredient;
+import kz.timka.tacocloud.data.Taco;
 import kz.timka.tacocloud.repositories.IngredientRepository;
+import kz.timka.tacocloud.repositories.TacoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -44,11 +47,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     // Предварительная загрузка данных с помощью CommandLineRunner
     @Bean
-    public CommandLineRunner dataLoader(IngredientRepository repo) {
+    public CommandLineRunner dataLoader(IngredientRepository repo, TacoRepository tacoRepo) {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                repo.save(new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP));
+                Ingredient ingredient = new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP);
+                repo.save(ingredient);
                 repo.save(new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP));
                 repo.save(new Ingredient("GRBF", "Ground Beef", Ingredient.Type.PROTEIN));
                 repo.save(new Ingredient("CARN", "Carnitas", Ingredient.Type.PROTEIN));
@@ -58,6 +62,12 @@ public class WebConfig implements WebMvcConfigurer {
                 repo.save(new Ingredient("JACK", "Monterrey Jack", Ingredient.Type.CHEESE));
                 repo.save(new Ingredient("SLSA", "Salsa", Ingredient.Type.SAUCE));
                 repo.save(new Ingredient("SRCR", "Sour Cream", Ingredient.Type.SAUCE));
+
+                Taco taco1 = new Taco();
+                taco1.setName("Carnivore");
+                taco1.setIngredients(Arrays.asList(
+                        ingredient));
+                tacoRepo.save(taco1);
 
             }
         };

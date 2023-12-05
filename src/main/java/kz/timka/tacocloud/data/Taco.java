@@ -1,6 +1,7 @@
 package kz.timka.tacocloud.data;
 
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 
 import javax.persistence.*;
@@ -11,6 +12,10 @@ import java.util.List;
 
 @Data
 @Entity
+@RestResource(rel="tacos", path="tacos") // spring-boot-starter-data-rest библиотека автоматно генериует
+// endpoints по репозиториям. Обычно она берет имя сущности и делает запрос во множественном числе
+// но иногда тупит и аннотация @RestResource(rel="tacos", path="tacos") позволяет дать то имя которое мы
+// хотим. Запрос будет как data-api/tacos. data-api указали в yaml файле
 public class Taco {
 
     @Id

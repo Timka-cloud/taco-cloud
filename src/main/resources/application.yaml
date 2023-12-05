@@ -11,6 +11,9 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
+  data:
+    rest:
+      base-path: /data-api
   security:
     oauth2:
       client:
@@ -37,3 +40,6 @@ spring:
 taco:
   orders:
     pageSize: 10
+design:
+  taco:
+    quantity: 2
